@@ -13,9 +13,10 @@ path = "src/main.rs"
 
 [dependencies]
 # Web framework
-axum = { version = "0.7", features = ["macros", "tracing"] }
+axum = { version = "0.7", features = ["macros", "tracing", "multipart"] }
 tower = "0.5"
-tower-http = { version = "0.6", features = ["trace", "cors"] }
+tower-http = { version = "0.6", features = ["trace", "cors", "fs", "limit"] }
+mime_guess = "2"
 hyper = { version = "1", features = ["full"] }
 
 # Async runtime

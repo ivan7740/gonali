@@ -20,6 +20,8 @@ fn cfg() -> Config {
         port: 0,
         access_ttl_secs: 60 * 60,
         refresh_ttl_secs: 24 * 60 * 60,
+        upload_dir: std::env::temp_dir().join("unii-test-uploads"),
+        public_base_url: "http://localhost".into(),
     }
 }
 

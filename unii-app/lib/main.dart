@@ -17,13 +17,43 @@ Future<void> main() async {
   final hasToken = TokenStorage.peekHasAccess();
   final initial = hasToken ? Routes.home : Routes.login;
 
-  runApp(UniiApp(initialRoute: initial));
+  // Read persisted theme/locale before first frame to avoid a flash.
+  final box = GetStorage();
+  final themeMode = _parseThemeMode(box.read<String>('theme_mode'));
+  final locale =
+      _parseLocale(box.read<String>('app_locale')) ?? Get.deviceLocale;
+
+  runApp(
+    UniiApp(
+      initialRoute: initial,
+      initialThemeMode: themeMode,
+      initialLocale: locale,
+    ),
+  );
+}
+
+ThemeMode _parseThemeMode(String? s) => switch (s) {
+  'light' => ThemeMode.light,
+  'dark' => ThemeMode.dark,
+  _ => ThemeMode.system,
+};
+
+Locale? _parseLocale(String? s) {
+  if (s == null) return null;
+  return Locale(s);
 }
 
 class UniiApp extends StatelessWidget {
-  const UniiApp({required this.initialRoute, super.key});
+  const UniiApp({
+    required this.initialRoute,
+    required this.initialThemeMode,
+    required this.initialLocale,
+    super.key,
+  });
 
   final String initialRoute;
+  final ThemeMode initialThemeMode;
+  final Locale? initialLocale;
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +62,12 @@ class UniiApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
-      themeMode: ThemeMode.system,
+      themeMode: initialThemeMode,
       initialBinding: InitialBinding(),
       initialRoute: initialRoute,
       getPages: AppPages.routes,
       translations: AppTranslations(),
-      locale: Get.deviceLocale,
+      locale: initialLocale,
       fallbackLocale: const Locale('en'),
       supportedLocales: const [Locale('zh'), Locale('en')],
       localizationsDelegates: const [

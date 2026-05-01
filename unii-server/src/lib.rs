@@ -10,10 +10,14 @@ pub mod util;
 
 use std::sync::Arc;
 
-use axum::{middleware as axum_mw, routing::get, Router};
+use axum::{extract::DefaultBodyLimit, middleware as axum_mw, routing::get, Router};
 use sqlx::PgPool;
+use tower_http::services::ServeDir;
 
 use crate::{config::Config, state::AppState};
+
+/// Hard cap on request body size (avatar upload). 5 MiB is generous for jpegs/pngs.
+const MAX_BODY_BYTES: usize = 5 * 1024 * 1024;
 
 /// Build the full application router with the given AppState.
 ///
@@ -31,15 +35,28 @@ pub fn build_router(state: AppState) -> Router {
             middleware::auth::auth_mw,
         ));
 
-    public.merge(protected).with_state(state)
+    let uploads = Router::new().nest_service("/uploads", ServeDir::new(state.upload_dir.as_ref()));
+
+    public
+        .merge(protected)
+        .merge(uploads)
+        .layer(DefaultBodyLimit::max(MAX_BODY_BYTES))
+        .with_state(state)
 }
 
 /// Build an AppState from a connected PgPool and configuration.
 pub fn build_state(db: PgPool, config: Config) -> AppState {
+    // Best-effort: ensure the upload dir exists. Failing here is non-fatal because the
+    // app may run with avatar upload disabled in some deployments — the route itself
+    // will surface a clearer error if writes fail.
+    let _ = std::fs::create_dir_all(&config.upload_dir);
+
     AppState {
         db,
         jwt_secret: Arc::<str>::from(config.jwt_secret),
         access_ttl_secs: config.access_ttl_secs,
         refresh_ttl_secs: config.refresh_ttl_secs,
+        upload_dir: Arc::new(config.upload_dir),
+        public_base_url: Arc::<str>::from(config.public_base_url),
     }
 }
