@@ -7,6 +7,8 @@ import 'package:unii_app/modules/auth/auth_binding.dart';
 import 'package:unii_app/modules/discover/create/post_create_view.dart';
 import 'package:unii_app/modules/discover/detail/post_detail_view.dart';
 import 'package:unii_app/modules/auth/login_view.dart';
+import 'package:unii_app/modules/chat/conversation/conversation_view.dart';
+import 'package:unii_app/modules/chat/picker/chat_pick_view.dart';
 import 'package:unii_app/modules/home/home_binding.dart';
 import 'package:unii_app/modules/home/home_view.dart';
 import 'package:unii_app/modules/onboarding/map_picker_view.dart';
@@ -20,6 +22,7 @@ import 'package:unii_app/modules/team/create/team_create_view.dart';
 import 'package:unii_app/modules/team/detail/team_detail_view.dart';
 import 'package:unii_app/modules/team/join/team_join_view.dart';
 import 'package:unii_app/modules/team/members/team_members_view.dart';
+import 'package:unii_app/modules/team/moments/moments_view.dart';
 
 abstract class AppPages {
   AppPages._();
@@ -50,5 +53,8 @@ abstract class AppPages {
     GetPage<void>(name: Routes.activityDetail, page: ActivityDetailView.new),
     GetPage<void>(name: Routes.postCreate, page: PostCreateView.new),
     GetPage<void>(name: Routes.postDetail, page: PostDetailView.new),
+    GetPage<void>(name: Routes.chatPicker, page: ChatPickView.new),
+    GetPage<void>(name: Routes.conversation, page: ConversationView.new),
+    GetPage<void>(name: Routes.teamMoments, page: MomentsView.new),
   ];
 }

@@ -111,6 +111,14 @@ class TeamDetailView extends StatelessWidget {
                     Get.toNamed<void>(Routes.teamMembers, arguments: teamId),
               ),
               const Divider(height: 1),
+              ListTile(
+                leading: const Icon(Icons.photo_camera_outlined),
+                title: Text('team_moments_title'.tr),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () =>
+                    Get.toNamed<void>(Routes.teamMoments, arguments: teamId),
+              ),
+              const Divider(height: 1),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                 child: Text(

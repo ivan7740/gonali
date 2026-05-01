@@ -161,6 +161,18 @@ const Map<String, String> _en = {
   'comments_title': 'Comments',
   'comments_empty': 'No comments yet. Start the conversation!',
   'comment_hint': 'Write a comment…',
+
+  // Chat & moments (W6)
+  'chat_title': 'Chat',
+  'chat_empty': 'No conversations yet — tap + to start one.',
+  'chat_start_new': 'Start a new chat',
+  'chat_no_candidates':
+      'You need teammates to chat with. Join or create a team first.',
+  'chat_compose_hint': 'Type a message…',
+  'chat_recalled': 'This message was recalled',
+  'team_moments_title': 'Team moments',
+  'team_moments_empty': 'No moments yet. Share something with your team.',
+  'team_moments_create': 'New moment',
 };
 
 const Map<String, String> _zh = {
@@ -306,4 +318,15 @@ const Map<String, String> _zh = {
   'comments_title': '留言',
   'comments_empty': '暂无留言，来抢沙发！',
   'comment_hint': '写一条留言…',
+
+  // Chat & moments (W6)
+  'chat_title': '私聊',
+  'chat_empty': '暂无会话，点 + 发起一段。',
+  'chat_start_new': '发起聊天',
+  'chat_no_candidates': '需要先加入或创建团队才能开聊。',
+  'chat_compose_hint': '说点什么…',
+  'chat_recalled': '消息已撤回',
+  'team_moments_title': '团队朋友圈',
+  'team_moments_empty': '暂无内容。分享一些团队动态吧！',
+  'team_moments_create': '发布动态',
 };

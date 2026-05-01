@@ -13,7 +13,7 @@ use crate::{
         team::{validate_name, CreateTeamReq, JoinTeamReq, MemberView, TeamView, TransferOwnerReq},
     },
     error::{AppError, AppResult},
-    service::{activity_repo, location_repo, team_repo},
+    service::{activity_repo, location_repo, moment_repo, team_repo},
     state::AppState,
     util::{invite_code, jwt::Claims},
 };
@@ -295,10 +295,12 @@ async fn heartbeat(
         Vec::new()
     };
 
+    let moment_unread = moment_repo::unread_count_for_member(&state.db, id, claims.sub).await?;
+
     Ok(ApiResp::ok(HeartbeatResp {
         members,
         activity_changes,
-        moment_unread: 0,
+        moment_unread,
         server_time: chrono::Utc::now(),
     }))
 }

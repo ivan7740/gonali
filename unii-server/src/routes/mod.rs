@@ -1,8 +1,10 @@
 pub mod activities;
 pub mod auth;
+pub mod chats;
 pub mod health;
 pub mod locations;
 pub mod media;
+pub mod moments;
 pub mod posts;
 pub mod teams;
 pub mod users;

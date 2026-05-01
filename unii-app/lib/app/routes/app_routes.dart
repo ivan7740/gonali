@@ -17,6 +17,11 @@ abstract class Routes {
   static const String postCreate = '/post/create';
   static const String postDetail = '/post/detail';
 
+  // Chat & moments (W6)
+  static const String chatPicker = '/chat/picker';
+  static const String conversation = '/chat/conversation';
+  static const String teamMoments = '/team/moments';
+
   // Team & activity (W3)
   static const String teamCreate = '/team/create';
   static const String teamJoin = '/team/join';

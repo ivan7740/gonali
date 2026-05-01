@@ -12,8 +12,10 @@ import 'package:unii_app/core/storage/token_storage.dart';
 import 'package:unii_app/core/theme/theme_controller.dart';
 import 'package:unii_app/data/repositories/activity_repo.dart';
 import 'package:unii_app/data/repositories/auth_repo.dart';
+import 'package:unii_app/data/repositories/chat_repo.dart';
 import 'package:unii_app/data/repositories/location_repo.dart';
 import 'package:unii_app/data/repositories/media_repo.dart';
+import 'package:unii_app/data/repositories/moment_repo.dart';
 import 'package:unii_app/data/repositories/post_repo.dart';
 import 'package:unii_app/data/repositories/team_repo.dart';
 import 'package:unii_app/data/repositories/user_repo.dart';
@@ -36,6 +38,8 @@ class InitialBinding extends Bindings {
     Get.put<LocationRepo>(LocationRepo(dio: Get.find<Dio>()), permanent: true);
     Get.put<PostRepo>(PostRepo(dio: Get.find<Dio>()), permanent: true);
     Get.put<MediaRepo>(MediaRepo(dio: Get.find<Dio>()), permanent: true);
+    Get.put<MomentRepo>(MomentRepo(dio: Get.find<Dio>()), permanent: true);
+    Get.put<ChatRepo>(ChatRepo(dio: Get.find<Dio>()), permanent: true);
     Get.put<ThemeController>(ThemeController(), permanent: true);
     Get.put<LocaleController>(LocaleController(), permanent: true);
 
