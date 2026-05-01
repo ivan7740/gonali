@@ -11,4 +11,12 @@ abstract class Routes {
   static const String privacy = '/profile/privacy';
   static const String about = '/profile/about';
   static const String mapSettings = '/profile/map';
+
+  // Team & activity (W3)
+  static const String teamCreate = '/team/create';
+  static const String teamJoin = '/team/join';
+  static const String teamDetail = '/team/detail';
+  static const String teamMembers = '/team/members';
+  static const String activityForm = '/activity/form';
+  static const String activityDetail = '/activity/detail';
 }

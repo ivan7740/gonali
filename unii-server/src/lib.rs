@@ -28,8 +28,13 @@ pub fn build_router(state: AppState) -> Router {
         .route("/healthz", get(routes::health::healthz))
         .nest("/api/v1/auth", routes::auth::public_routes());
 
+    let teams_router =
+        routes::teams::routes().nest("/:id/activities", routes::activities::team_scoped());
+
     let protected = Router::new()
         .nest("/api/v1/users", routes::users::routes())
+        .nest("/api/v1/teams", teams_router)
+        .nest("/api/v1/activities", routes::activities::standalone())
         .route_layer(axum_mw::from_fn_with_state(
             state.clone(),
             middleware::auth::auth_mw,

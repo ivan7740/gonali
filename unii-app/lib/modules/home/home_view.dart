@@ -4,15 +4,15 @@ import 'package:get/get.dart';
 import 'package:unii_app/modules/home/home_controller.dart';
 import 'package:unii_app/modules/home/tabs/chat_placeholder.dart';
 import 'package:unii_app/modules/home/tabs/discover_placeholder.dart';
-import 'package:unii_app/modules/home/tabs/team_placeholder.dart';
 import 'package:unii_app/modules/profile/profile_view.dart';
+import 'package:unii_app/modules/team/team_view.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
 
   static const _tabs = <Widget>[
     DiscoverPlaceholder(),
-    TeamPlaceholder(),
+    TeamView(),
     ChatPlaceholder(),
     ProfileView(),
   ];
