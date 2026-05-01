@@ -1,0 +1,8 @@
+{
+  "enabledPlugins": {
+    "superpowers@superpowers-marketplace": true
+  },
+  "env": {
+    "ECC_DISABLED_HOOKS": "pre:bash:gateguard-fact-force,pre:edit-write:gateguard-fact-force"
+  }
+}

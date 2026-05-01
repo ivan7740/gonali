@@ -1,0 +1,72 @@
+name: server-ci
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'unii-server/**'
+      - '.github/workflows/server-ci.yml'
+  pull_request:
+    paths:
+      - 'unii-server/**'
+      - '.github/workflows/server-ci.yml'
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+  SQLX_OFFLINE: 'true'
+
+jobs:
+  lint:
+    name: fmt + clippy
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: unii-server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: unii-server
+      - run: cargo fmt --all -- --check
+      - run: cargo clippy --all-targets -- -D warnings
+
+  test:
+    name: cargo test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: unii-server
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_USER: unii
+          POSTGRES_PASSWORD: unii
+          POSTGRES_DB: unii
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U unii -d unii"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgres://unii:unii@localhost:5432/unii
+      JWT_SECRET: ci-jwt-secret-ci-jwt-secret-ci-jwt-secret-1234
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: unii-server
+      - name: Wait for postgres
+        run: |
+          for i in {1..30}; do
+            pg_isready -h localhost -p 5432 -U unii && break
+            sleep 2
+          done
+      - run: cargo test --all-targets

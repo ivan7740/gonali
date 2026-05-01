@@ -1,0 +1,35 @@
+name: unii_app
+description: "UNII — social/teaming app"
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # State management & navigation
+  get: ^4.6.6
+
+  # Networking
+  dio: ^5.7.0
+
+  # Local key/value storage (W1 only — migrate to flutter_secure_storage in W7).
+  get_storage: ^2.1.1
+
+  # Geolocation (declared early; first wired in W4).
+  geolocator: ^13.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  mocktail: ^1.0.4
+
+flutter:
+  uses-material-design: true

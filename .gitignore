@@ -1,0 +1,72 @@
+# =============================================================================
+# Rust
+# =============================================================================
+/unii-server/target/
+**/*.rs.bk
+*.pdb
+
+# =============================================================================
+# Flutter / Dart
+# =============================================================================
+/unii-app/.dart_tool/
+/unii-app/.flutter-plugins
+/unii-app/.flutter-plugins-dependencies
+/unii-app/.packages
+/unii-app/.pub-cache/
+/unii-app/.pub/
+/unii-app/build/
+/unii-app/.metadata
+/unii-app/pubspec.lock
+/unii-app/coverage/
+
+# Flutter platform build outputs
+/unii-app/android/.gradle/
+/unii-app/android/captures/
+/unii-app/android/local.properties
+/unii-app/android/**/GeneratedPluginRegistrant.*
+/unii-app/android/key.properties
+/unii-app/ios/Pods/
+/unii-app/ios/.symlinks/
+/unii-app/ios/Flutter/Flutter.framework
+/unii-app/ios/Flutter/Flutter.podspec
+/unii-app/ios/Flutter/Generated.xcconfig
+/unii-app/ios/Flutter/ephemeral/
+/unii-app/ios/Flutter/app.flx
+/unii-app/ios/Flutter/app.zip
+/unii-app/ios/Flutter/flutter_assets/
+/unii-app/ios/Flutter/flutter_export_environment.sh
+/unii-app/ios/ServiceDefinitions.json
+/unii-app/ios/Runner/GeneratedPluginRegistrant.*
+
+# =============================================================================
+# Environment / Secrets
+# =============================================================================
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# =============================================================================
+# Docker
+# =============================================================================
+postgres-data/
+minio-data/
+caddy-data/
+
+# =============================================================================
+# IDE
+# =============================================================================
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.DS_Store
+Thumbs.db
+
+# =============================================================================
+# Logs
+# =============================================================================
+*.log
+logs/

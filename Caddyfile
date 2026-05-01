@@ -1,0 +1,22 @@
+# UNII reverse proxy — DISABLED in W1.
+#
+# This file is a placeholder. The caddy service in docker-compose.yml is
+# commented out and will be enabled in W8 (TLS / public deployment).
+#
+# When enabling:
+#   1. Replace example.com with the real domain.
+#   2. Uncomment the caddy service block in docker-compose.yml.
+#   3. Point DNS A/AAAA records to the host.
+#   4. Caddy will auto-provision Let's Encrypt certs on first request.
+
+example.com {
+	encode zstd gzip
+
+	# API → Rust backend
+	reverse_proxy /api/* unii-server:8080
+	reverse_proxy /healthz unii-server:8080
+
+	# Static assets / future web frontend (W8+)
+	# root * /srv/web
+	# file_server
+}
