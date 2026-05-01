@@ -13,6 +13,10 @@ abstract class Routes {
   static const String about = '/profile/about';
   static const String mapSettings = '/profile/map';
 
+  // Discover (W5)
+  static const String postCreate = '/post/create';
+  static const String postDetail = '/post/detail';
+
   // Team & activity (W3)
   static const String teamCreate = '/team/create';
   static const String teamJoin = '/team/join';

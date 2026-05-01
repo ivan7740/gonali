@@ -148,6 +148,19 @@ const Map<String, String> _en = {
       'AMap selection saves the preference. Native SDK setup (Android/iOS keys) is W4.1.',
   'team_no_members_reporting':
       'No teammate has reported a location yet. Open the app or enable sharing to appear here.',
+
+  // Discover (W5)
+  'discover_title': 'Discover',
+  'discover_empty': 'No posts yet — pull to refresh or tap + to create one.',
+  'post_create': 'Create post',
+  'post_title': 'Title',
+  'post_content': 'Say something…',
+  'post_add_images': 'Add images',
+  'post_empty': 'Add a title, body, or at least one image.',
+  'post_type_activity': 'Activity',
+  'comments_title': 'Comments',
+  'comments_empty': 'No comments yet. Start the conversation!',
+  'comment_hint': 'Write a comment…',
 };
 
 const Map<String, String> _zh = {
@@ -280,4 +293,17 @@ const Map<String, String> _zh = {
   'amap_placeholder_banner': '已选择高德引擎；W4.1 接入原生 SDK 前先用 OSM 瓦片渲染。',
   'amap_native_note': '已记录高德偏好。原生 SDK Key 配置 (Android/iOS) 在 W4.1 完成。',
   'team_no_members_reporting': '暂无成员上报位置。打开应用或开启「上报我的位置」即可显示。',
+
+  // Discover (W5)
+  'discover_title': '推荐',
+  'discover_empty': '还没有内容，下拉刷新或点 + 发布。',
+  'post_create': '发布动态',
+  'post_title': '标题',
+  'post_content': '说点什么…',
+  'post_add_images': '添加图片',
+  'post_empty': '至少填写标题、正文或一张图片。',
+  'post_type_activity': '活动',
+  'comments_title': '留言',
+  'comments_empty': '暂无留言，来抢沙发！',
+  'comment_hint': '写一条留言…',
 };

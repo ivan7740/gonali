@@ -16,8 +16,9 @@ use tower_http::services::ServeDir;
 
 use crate::{config::Config, state::AppState};
 
-/// Hard cap on request body size (avatar upload). 5 MiB is generous for jpegs/pngs.
-const MAX_BODY_BYTES: usize = 5 * 1024 * 1024;
+/// Hard cap on request body size. Avatars are <5 MiB; W5 media uploads
+/// stay below 10 MiB images per plan §9 (video lands in W6).
+const MAX_BODY_BYTES: usize = 10 * 1024 * 1024;
 
 /// Build the full application router with the given AppState.
 ///
@@ -36,6 +37,8 @@ pub fn build_router(state: AppState) -> Router {
         .nest("/api/v1/teams", teams_router)
         .nest("/api/v1/activities", routes::activities::standalone())
         .nest("/api/v1/locations", routes::locations::routes())
+        .nest("/api/v1/posts", routes::posts::routes())
+        .nest("/api/v1/media", routes::media::routes())
         .route_layer(axum_mw::from_fn_with_state(
             state.clone(),
             middleware::auth::auth_mw,

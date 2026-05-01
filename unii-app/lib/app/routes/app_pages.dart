@@ -4,6 +4,8 @@ import 'package:unii_app/app/routes/app_routes.dart';
 import 'package:unii_app/modules/activity/activity_detail_view.dart';
 import 'package:unii_app/modules/activity/activity_form_view.dart';
 import 'package:unii_app/modules/auth/auth_binding.dart';
+import 'package:unii_app/modules/discover/create/post_create_view.dart';
+import 'package:unii_app/modules/discover/detail/post_detail_view.dart';
 import 'package:unii_app/modules/auth/login_view.dart';
 import 'package:unii_app/modules/home/home_binding.dart';
 import 'package:unii_app/modules/home/home_view.dart';
@@ -46,5 +48,7 @@ abstract class AppPages {
     GetPage<void>(name: Routes.teamMembers, page: TeamMembersView.new),
     GetPage<void>(name: Routes.activityForm, page: ActivityFormView.new),
     GetPage<void>(name: Routes.activityDetail, page: ActivityDetailView.new),
+    GetPage<void>(name: Routes.postCreate, page: PostCreateView.new),
+    GetPage<void>(name: Routes.postDetail, page: PostDetailView.new),
   ];
 }
