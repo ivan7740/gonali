@@ -3,6 +3,7 @@ abstract class Routes {
 
   static const String login = '/login';
   static const String home = '/home';
+  static const String mapPicker = '/onboarding/map';
 
   // Profile (W2)
   static const String profileEdit = '/profile/edit';

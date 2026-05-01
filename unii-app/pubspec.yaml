@@ -22,8 +22,12 @@ dependencies:
   # Local key/value storage (W1 only — migrate to flutter_secure_storage in W7).
   get_storage: ^2.1.1
 
-  # Geolocation (declared early; first wired in W4).
+  # Geolocation (W4).
   geolocator: ^13.0.1
+
+  # Map (W4 ships OSM via flutter_map; AMap SDK integration follows in W4.1).
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
 
 dev_dependencies:
   flutter_test:

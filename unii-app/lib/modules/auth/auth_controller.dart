@@ -73,18 +73,20 @@ class AuthController extends GetxController {
 
     isLoading.value = true;
     try {
-      if (mode.value == AuthMode.register) {
-        await repo.register(
-          phone: phone.value,
-          password: password.value,
-          username: username.value.isEmpty
-              ? 'u${phone.value.substring(7)}'
-              : username.value,
-        );
-      } else {
-        await repo.login(phone: phone.value, password: password.value);
-      }
-      unawaited(Get.offAllNamed<void>(Routes.home));
+      final tokens = mode.value == AuthMode.register
+          ? await repo.register(
+              phone: phone.value,
+              password: password.value,
+              username: username.value.isEmpty
+                  ? 'u${phone.value.substring(7)}'
+                  : username.value,
+            )
+          : await repo.login(phone: phone.value, password: password.value);
+
+      // First-login map engine picker is mandatory (plan §4.2.1).
+      final needsPicker = tokens.user?.needsMapSetup ?? true;
+      final next = needsPicker ? Routes.mapPicker : Routes.home;
+      unawaited(Get.offAllNamed<void>(next));
     } on DioException catch (e) {
       final raw = e.response?.data;
       final msg = raw is Map<String, dynamic> ? raw['msg']?.toString() : null;

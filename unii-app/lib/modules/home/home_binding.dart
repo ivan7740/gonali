@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import 'package:unii_app/core/location/location_service.dart';
 import 'package:unii_app/core/storage/token_storage.dart';
 import 'package:unii_app/data/repositories/auth_repo.dart';
 import 'package:unii_app/data/repositories/team_repo.dart';
@@ -15,6 +16,7 @@ class HomeBinding implements Bindings {
       () => HomeController(
         storage: Get.find<TokenStorage>(),
         authRepo: Get.find<AuthRepo>(),
+        locationService: Get.find<LocationService>(),
       ),
       fenix: true,
     );

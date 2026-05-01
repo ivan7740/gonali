@@ -132,6 +132,22 @@ const Map<String, String> _en = {
   'coordinates': 'Coordinates',
   'start_time': 'Start',
   'end_time': 'End',
+
+  // Map / location (W4)
+  'map_picker_title': 'Choose your map',
+  'map_picker_subtitle':
+      'Pick the engine that best fits where you are. You can change this anytime in Profile → Map.',
+  'map_picker_amap_help':
+      'Best for mainland China — accurate POI search and routing.',
+  'map_picker_osm_help': 'Global coverage with offline tile support.',
+  'map_picker_footer':
+      'Coordinates are stored as WGS84 either way; switching engines preserves your data.',
+  'amap_placeholder_banner':
+      'AMap engine selected — native SDK ships in W4.1; rendering uses OSM tiles for now.',
+  'amap_native_note':
+      'AMap selection saves the preference. Native SDK setup (Android/iOS keys) is W4.1.',
+  'team_no_members_reporting':
+      'No teammate has reported a location yet. Open the app or enable sharing to appear here.',
 };
 
 const Map<String, String> _zh = {
@@ -254,4 +270,14 @@ const Map<String, String> _zh = {
   'coordinates': '坐标',
   'start_time': '开始时间',
   'end_time': '结束时间',
+
+  // Map / location (W4)
+  'map_picker_title': '请选择地图引擎',
+  'map_picker_subtitle': '根据你常用的场景选择，一键切换。可在「我的 → 地图设置」随时更改。',
+  'map_picker_amap_help': '推荐：国内活动、POI 搜索精准。',
+  'map_picker_osm_help': '推荐：海外活动、支持离线瓦片。',
+  'map_picker_footer': '无论选哪种引擎，坐标都以 WGS84 存储，切换不会丢数据。',
+  'amap_placeholder_banner': '已选择高德引擎；W4.1 接入原生 SDK 前先用 OSM 瓦片渲染。',
+  'amap_native_note': '已记录高德偏好。原生 SDK Key 配置 (Android/iOS) 在 W4.1 完成。',
+  'team_no_members_reporting': '暂无成员上报位置。打开应用或开启「上报我的位置」即可显示。',
 };

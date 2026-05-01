@@ -35,6 +35,7 @@ pub fn build_router(state: AppState) -> Router {
         .nest("/api/v1/users", routes::users::routes())
         .nest("/api/v1/teams", teams_router)
         .nest("/api/v1/activities", routes::activities::standalone())
+        .nest("/api/v1/locations", routes::locations::routes())
         .route_layer(axum_mw::from_fn_with_state(
             state.clone(),
             middleware::auth::auth_mw,

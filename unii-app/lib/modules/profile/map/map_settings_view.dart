@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
+import 'package:unii_app/core/map/map_adapter.dart';
+import 'package:unii_app/core/map/map_engine.dart';
+import 'package:unii_app/core/map/map_factory.dart';
 import 'package:unii_app/modules/profile/profile_controller.dart';
 
-/// W2 placeholder — lets the user record their preference (`amap`/`osm`) and
-/// persist it via `PUT /me/settings`. The actual map renderer ships in W4.
 class MapSettingsView extends StatelessWidget {
   const MapSettingsView({super.key});
 
@@ -30,24 +32,20 @@ class MapSettingsView extends StatelessWidget {
                 groupValue: engine,
                 title: Text('map_amap'.tr),
                 subtitle: Text('map_amap_help'.tr),
-                onChanged: (v) {
-                  if (v != null) profile.updateSettings(mapEngine: v);
-                },
+                onChanged: (v) => _switch(profile, v),
               ),
               RadioListTile<String>(
                 value: 'osm',
                 groupValue: engine,
                 title: Text('map_osm'.tr),
                 subtitle: Text('map_osm_help'.tr),
-                onChanged: (v) {
-                  if (v != null) profile.updateSettings(mapEngine: v);
-                },
+                onChanged: (v) => _switch(profile, v),
               ),
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  'coming_soon'.trParams({'wave': '4'}),
+                  'amap_native_note'.tr,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
@@ -56,5 +54,14 @@ class MapSettingsView extends StatelessWidget {
         }),
       ),
     );
+  }
+
+  Future<void> _switch(ProfileController profile, String? v) async {
+    if (v == null) return;
+    final engine = MapEngine.fromBackend(v);
+    if (engine == null) return;
+    await GetStorage().write('map_engine', v);
+    Get.replace<MapAdapter>(MapFactory.create(engine));
+    await profile.updateSettings(mapEngine: v);
   }
 }

@@ -1,5 +1,5 @@
 use axum::{
-    extract::{Path, State},
+    extract::{Path, Query, State},
     routing::{delete, get, post},
     Extension, Json, Router,
 };
@@ -7,11 +7,13 @@ use tracing::{info, instrument};
 
 use crate::{
     dto::{
+        activity::ActivityView,
         common::ApiResp,
+        location::{HeartbeatQuery, HeartbeatResp, MemberLocationView},
         team::{validate_name, CreateTeamReq, JoinTeamReq, MemberView, TeamView, TransferOwnerReq},
     },
     error::{AppError, AppResult},
-    service::team_repo,
+    service::{activity_repo, location_repo, team_repo},
     state::AppState,
     util::{invite_code, jwt::Claims},
 };
@@ -26,6 +28,7 @@ pub fn routes() -> Router<AppState> {
         .route("/:id/members/me", delete(leave))
         .route("/:id/members/:uid", delete(kick))
         .route("/:id/transfer", post(transfer))
+        .route("/:id/heartbeat", get(heartbeat))
 }
 
 const OWNER_ROLE: i16 = 1;
@@ -247,6 +250,57 @@ async fn disband(
     team_repo::delete_team(&state.db, id).await?;
     info!(team_id = id, "team disbanded");
     Ok(ApiResp::ok("ok"))
+}
+
+#[instrument(skip(state))]
+async fn heartbeat(
+    State(state): State<AppState>,
+    Extension(claims): Extension<Claims>,
+    Path(id): Path<i64>,
+    Query(q): Query<HeartbeatQuery>,
+) -> AppResult<Json<ApiResp<HeartbeatResp>>> {
+    if team_repo::role_of(&state.db, id, claims.sub)
+        .await?
+        .is_none()
+    {
+        return Err(AppError::NotFound("team".into()));
+    }
+    let raw_members = location_repo::team_member_locations(&state.db, id).await?;
+    let members = raw_members
+        .into_iter()
+        .map(|m| MemberLocationView {
+            user_id: m.user_id,
+            username: m.username,
+            nickname: m.nickname,
+            avatar_url: m.avatar_url,
+            lng: m.lng,
+            lat: m.lat,
+            accuracy: m.accuracy,
+            speed: m.speed,
+            bearing: m.bearing,
+            updated_at: m.updated_at,
+        })
+        .collect();
+
+    // W4: only return activities created after `since` (full change-tracking
+    // arrives with moments work in W6).
+    let activity_changes: Vec<ActivityView> = if let Some(since) = q.since {
+        activity_repo::list_by_team(&state.db, id)
+            .await?
+            .into_iter()
+            .filter(|a| a.created_at.map(|t| t > since).unwrap_or(true))
+            .map(Into::into)
+            .collect()
+    } else {
+        Vec::new()
+    };
+
+    Ok(ApiResp::ok(HeartbeatResp {
+        members,
+        activity_changes,
+        moment_unread: 0,
+        server_time: chrono::Utc::now(),
+    }))
 }
 
 fn is_unique_violation(e: &sqlx::Error) -> bool {

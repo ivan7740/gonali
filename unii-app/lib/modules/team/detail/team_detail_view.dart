@@ -7,6 +7,7 @@ import 'package:unii_app/data/models/activity.dart';
 import 'package:unii_app/data/repositories/activity_repo.dart';
 import 'package:unii_app/data/repositories/team_repo.dart';
 import 'package:unii_app/modules/team/detail/team_detail_controller.dart';
+import 'package:unii_app/modules/team/detail/team_map_widget.dart';
 import 'package:unii_app/modules/team/team_controller.dart';
 
 class TeamDetailView extends StatelessWidget {
@@ -98,6 +99,8 @@ class TeamDetailView extends StatelessWidget {
           }
           return ListView(
             children: [
+              SizedBox(height: 220, child: TeamMapWidget(teamId: teamId)),
+              const Divider(height: 1),
               _Header(controller: c),
               const Divider(height: 1),
               ListTile(

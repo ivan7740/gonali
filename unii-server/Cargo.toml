@@ -17,6 +17,7 @@ axum = { version = "0.7", features = ["macros", "tracing", "multipart"] }
 tower = "0.5"
 tower-http = { version = "0.6", features = ["trace", "cors", "fs", "limit"] }
 mime_guess = "2"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
 hyper = { version = "1", features = ["full"] }
 
 # Async runtime
@@ -59,6 +60,7 @@ dotenvy = "0.15"
 tower = { version = "0.5", features = ["util"] }
 http-body-util = "0.1"
 serde_json = "1"
+urlencoding = "2"
 
 [profile.release]
 lto = "thin"
